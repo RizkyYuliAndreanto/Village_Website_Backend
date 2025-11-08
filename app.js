@@ -7,7 +7,6 @@ import cookieParser from "cookie-parser";
 import { logger, httpLogger } from "./config/logger.js";
 import { errorHandler } from "./src/middlewares/errorHandler.js";
 
-
 // general
 import authRoutes from "./src/routes/auth/auth.js";
 
@@ -15,6 +14,10 @@ import authRoutes from "./src/routes/auth/auth.js";
 import dusunRoutes from "./src/routes/ppid/dusun.js";
 import rtRoutes from "./src/routes/ppid/rt.js";
 import masyarakatRoutes from "./src/routes/ppid/masyarakat.js";
+
+// infografis
+import demografiPendudukRoutes from "./src/routes/infografis/demografiPendudukRoute.js";
+import tahunDataRoutes from "./src/routes/infografis/tahunDataRoute.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -74,6 +77,10 @@ app.use("/api/auth", authLimiter, authRoutes);
 app.use("/api/ppid/dusun", dusunRoutes);
 app.use("/api/ppid/rt", rtRoutes);
 app.use("/api/ppid/msyrkt", masyarakatRoutes);
+
+// infografis routes
+app.use("/api/infografis/demografi-penduduk", demografiPendudukRoutes);
+app.use("/api/infografis/tahun-data", tahunDataRoutes);
 
 // 404 handler
 app.use("*", (req, res) => {

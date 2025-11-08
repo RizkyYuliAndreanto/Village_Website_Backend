@@ -11,7 +11,7 @@
     "migrate:rollback": "knex migrate:rollback",
     "migrate:make": "knex migrate:make",
     "test": "jest",
-    "seeds": "npx knex seed:run --specific=000_master_seed.js"
+    "seeds": "npx knex seed:run --specific=000_users_seed.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
