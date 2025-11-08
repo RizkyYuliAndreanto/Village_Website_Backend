@@ -8,7 +8,7 @@ const config = {
       port: process.env.DB_PORT || 3306,
       user: process.env.DB_USER || "root",
       password: process.env.DB_PASSWORD || "",
-      database: process.env.DB_NAME || "desa-krebet",
+      database: process.env.DB_NAME || "db_desa_banyukambang",
       charset: "utf8mb4",
     },
     migrations: {
