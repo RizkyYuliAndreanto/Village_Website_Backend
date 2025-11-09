@@ -6,16 +6,41 @@ class BaseChildModel {
     this.primaryKey = primaryKey;
     this.foreignKeys = foreignKeys;
     this.db = db;
-    
+
     // Tentukan nama kolom timestamp berdasarkan tabel
     // Tabel lama menggunakan 'created_at', tabel baru menggunakan 'create_at'
     const tablesWithCreatedAt = [
-      'users', 'refresh_tokens', 'dusuns', 'rts', 'masyarakats', 
-      'tahun_data', 'umur_statistik'
+      "users",
+      "refresh_tokens",
+      "dusuns",
+      "rts",
+      "masyarakats",
+      "tahun_data",
+      "umur_statistik", // Migrasi ini menggunakan created_at
     ];
-    
-    this.createdAtColumn = tablesWithCreatedAt.includes(tableName) ? 'created_at' : 'create_at';
-    this.updatedAtColumn = 'updated_at';
+
+    // --- PERBAIKAN DI SINI ---
+    // Daftar ini diperbarui agar sesuai dengan SEMUA file migrasi Anda
+    const tablesWithCreateAt = [
+      "demografi_penduduk",
+      "agama_statistik",
+      "pekerjaan_statistik",
+      "pendidikan_statistik",
+      "perkawinan_statistik",
+      "wajib_pilih_statistik",
+    ];
+    // -------------------------
+
+    if (tablesWithCreatedAt.includes(tableName)) {
+      this.createdAtColumn = "created_at";
+    } else if (tablesWithCreateAt.includes(tableName)) {
+      this.createdAtColumn = "create_at";
+    } else {
+      // Default fallback
+      this.createdAtColumn = "create_at";
+    }
+
+    this.updatedAtColumn = "updated_at";
   }
 
   // Get all records with year information
