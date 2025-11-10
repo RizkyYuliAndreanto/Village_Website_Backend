@@ -11,6 +11,13 @@ import { errorHandler } from "./src/middlewares/errorHandler.js";
 import authRoutes from "./src/routes/auth/auth.js";
 
 // ppid
+import dusunRoutes from "./src/routes/ppid/dusun.js";
+import rtRoutes from "./src/routes/ppid/rt.js";
+import masyarakatRoutes from "./src/routes/ppid/masyarakat.js";
+
+// infografis
+import demografiPendudukRoutes from "./src/routes/infografis/demografiPendudukRoute.js";
+import tahunDataRoutes from "./src/routes/infografis/tahunDataRoute.js";
 // #masyarakat
 import dusunRoutes from "./src/routes/ppid/masyarakat/dusun.js";
 import rtRoutes from "./src/routes/ppid/masyarakat/rt.js";
@@ -81,6 +88,10 @@ app.use("/api/auth", authLimiter, authRoutes);
 app.use("/api/ppid/dusun", dusunRoutes);
 app.use("/api/ppid/rt", rtRoutes);
 app.use("/api/ppid/msyrkt", masyarakatRoutes);
+
+// infografis routes
+app.use("/api/infografis/demografi-penduduk", demografiPendudukRoutes);
+app.use("/api/infografis/tahun-data", tahunDataRoutes);
 
 // #umkm
 app.use("/api/ppid/kategori_umkm", kategoriUmkmRoutes);
