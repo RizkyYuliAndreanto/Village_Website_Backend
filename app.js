@@ -21,6 +21,7 @@ import masyarakatRoutes from "./src/routes/ppid/masyarakat.js";
 import demografiPendudukRoutes from "./src/routes/infografis/demografiPendudukRoute.js";
 import tahunDataRoutes from "./src/routes/infografis/tahunDataRoute.js";
 import agamaStatistikRoutes from "./src/routes/infografis/agamaStatistikRoute.js";
+import umurStatistikRoutes from "./src/routes/infografis/umurStatistikRoute.js";
 
 const app = express();
 const frontendUrl = process.env.CORS_ORIGIN || "http://localhost:5173";
@@ -87,6 +88,7 @@ app.use("/api/ppid/msyrkt", masyarakatRoutes);
 app.use("/api/infografis/demografi-penduduk", demografiPendudukRoutes);
 app.use("/api/infografis/tahun-data", tahunDataRoutes);
 app.use("/api/infografis/agama-statistik", agamaStatistikRoutes);
+app.use("/api/infografis/umur-statistik", umurStatistikRoutes);
 
 // 404 handler
 app.use("*", (req, res) => {
