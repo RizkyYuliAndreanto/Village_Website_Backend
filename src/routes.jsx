@@ -3,11 +3,11 @@ import {
   UserCircleIcon,
   TableCellsIcon,
   InformationCircleIcon,
-  ServerStackIcon,
-  RectangleStackIcon,
+  PowerIcon,
+  ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Profile, Tables, Notifications } from "@/pages/dashboard";
-import { SignIn, SignUp } from "@/pages/auth";
+import { Dashboard, Profile, Tables, Notifications } from "@/pages/admin";
+import { Login, LogoutPage } from "@/pages/auth";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -15,18 +15,18 @@ const icon = {
 
 export const routes = [
   {
-    layout: "dashboard",
+    layout: "admin",
     pages: [
       {
         icon: <HomeIcon {...icon} />,
         name: "dashboard",
-        path: "/home",
-        element: <Home />,
+        path: "/dashboard",
+        element: <Dashboard />,
       },
       {
         icon: <UserCircleIcon {...icon} />,
-        name: "profile",
-        path: "/profile",
+        name: "users",
+        path: "/users",
         element: <Profile />,
       },
       {
@@ -48,16 +48,16 @@ export const routes = [
     layout: "auth",
     pages: [
       {
-        icon: <ServerStackIcon {...icon} />,
-        name: "sign in",
-        path: "/sign-in",
-        element: <SignIn />,
+        icon: <ArrowRightOnRectangleIcon {...icon} />,
+        name: "Login",
+        path: "/login",
+        element: <Login />,
       },
       {
-        icon: <RectangleStackIcon {...icon} />,
-        name: "sign up",
-        path: "/sign-up",
-        element: <SignUp />,
+        icon: <PowerIcon {...icon} />,
+        name: "Logout",
+        path: "/logout",
+        element: <LogoutPage />,
       },
     ],
   },
