@@ -80,6 +80,7 @@ app.get("/health", (req, res) => {
 app.use("/api/auth", authLimiter, authRoutes);
 
 // ppid routes
+// #masyarakat
 app.use("/api/ppid/dusun", dusunRoutes);
 app.use("/api/ppid/rt", rtRoutes);
 app.use("/api/ppid/msyrkt", masyarakatRoutes);
@@ -89,6 +90,10 @@ app.use("/api/infografis/demografi-penduduk", demografiPendudukRoutes);
 app.use("/api/infografis/tahun-data", tahunDataRoutes);
 app.use("/api/infografis/agama-statistik", agamaStatistikRoutes);
 app.use("/api/infografis/umur-statistik", umurStatistikRoutes);
+
+// #umkm
+app.use("/api/ppid/kategori_umkm", kategoriUmkmRoutes);
+app.use("/api/ppid/umkm", umkmRoutes);
 
 // 404 handler
 app.use("*", (req, res) => {

@@ -1,8 +1,8 @@
-import { db } from "../../../config/database.js";
+import { db } from "../../../../config/database.js";
 import {
   createMasyarakatSchema,
   updateMasyarakatSchema,
-} from "../../validations/ppid/masyarakat.js";
+} from "../../../validations/ppid/masyarakat/masyarakat.js";
 
 class MasyarakatController {
   static async index(req, res, next) {
@@ -88,12 +88,10 @@ class MasyarakatController {
           .where({ nik: value.nik })
           .first();
         if (existsNik) {
-          return res
-            .status(409)
-            .json({
-              success: false,
-              message: "NIK already used by another person",
-            });
+          return res.status(409).json({
+            success: false,
+            message: "NIK already used by another person",
+          });
         }
       }
 
@@ -165,12 +163,10 @@ class MasyarakatController {
           .andWhereNot({ id })
           .first();
         if (dup) {
-          return res
-            .status(409)
-            .json({
-              success: false,
-              message: "NIK already used by another person",
-            });
+          return res.status(409).json({
+            success: false,
+            message: "NIK already used by another person",
+          });
         }
       }
 
