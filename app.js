@@ -32,9 +32,9 @@ const PORT = process.env.PORT || 300;
 app.use(helmet());
 app.use(
   cors({
-    origin: frontendUrl,   // <-- Ini harus sesuai dengan port frontend Anda
-    credentials: true,     // <-- Penting untuk mengizinkan cookie (untuk refresh token)
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"] // Izinkan semua metode
+    origin: frontendUrl, // <-- Ini harus sesuai dengan port frontend Anda
+    credentials: true, // <-- Penting untuk mengizinkan cookie (untuk refresh token)
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // Izinkan semua metode
   })
 );
 app.use(cookieParser());
@@ -89,7 +89,7 @@ app.use("*", (req, res) => {
 // Error handling middleware
 app.use(errorHandler);
 
-console.table(listEndpoints(app)); // tampil rapi seperti artisan route:list
+
 // Start server
 app.listen(PORT, () => {
   // 3. (Opsional) Gunakan logger untuk pesan status server
