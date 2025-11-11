@@ -8,32 +8,9 @@ import {
 } from "../../validations/infografis/agamaStatistikValidation.js";
 import { authenticate } from "../../middlewares/auth.js";
 import { authorizeRoles } from "../../middlewares/roleHandler.js";
+import { validateRequest } from "../../middlewares/validation.js";
 
 const router = express.Router();
-
-// Middleware untuk validasi request
-const validateRequest = (schema, property = "body") => {
-  return (req, res, next) => {
-    const { error, value } = schema.validate(req[property], {
-      abortEarly: false,
-      stripUnknown: true,
-    });
-
-    if (error) {
-      const errorMessage = error.details
-        .map((detail) => detail.message)
-        .join(", ");
-      return res.status(400).json({
-        success: false,
-        message: "Validation error",
-        errors: errorMessage,
-      });
-    }
-
-    req[property] = value;
-    next();
-  };
-};
 
 // Public routes (read-only)
 router.get("/", AgamaStatistikController.getAllAgamaStatistik);

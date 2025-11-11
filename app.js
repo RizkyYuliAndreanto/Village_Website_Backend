@@ -2,12 +2,11 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import listEndpoints from "express-list-endpoints";
 import { logger, httpLogger } from "./config/logger.js";
 import { errorHandler } from "./src/middlewares/errorHandler.js";
-import router from "./src/routes/index.js";
+import { apiLimiter, authLimiter } from "./src/middlewares/rateLimiter.js";
 
 // general
 import authRoutes from "./src/routes/auth/auth.js";
@@ -47,26 +46,8 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 // Ini akan mencatat semua permintaan yang masuk setelah ini
 app.use(httpLogger);
 
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: {
-    success: false,
-    message: "Too many requests from this IP, please try again later",
-  },
-});
-app.use("/api/", limiter);
-
-// Auth rate limiting (more strict)
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Naikkan sedikit untuk mengakomodasi percobaan login
-  message: {
-    success: false,
-    message: "Too many authentication attempts, please try again later",
-  },
-});
+// Rate limiting menggunakan middleware terpisah
+app.use("/api/", apiLimiter);
 
 // Health check endpoint
 app.get("/health", (req, res) => {
