@@ -4,8 +4,10 @@ import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
+import listEndpoints from "express-list-endpoints";
 import { logger, httpLogger } from "./config/logger.js";
 import { errorHandler } from "./src/middlewares/errorHandler.js";
+import router from "./src/routes/index.js";
 
 // general
 import authRoutes from "./src/routes/auth/auth.js";
@@ -18,16 +20,20 @@ import masyarakatRoutes from "./src/routes/ppid/masyarakat.js";
 // infografis
 import demografiPendudukRoutes from "./src/routes/infografis/demografiPendudukRoute.js";
 import tahunDataRoutes from "./src/routes/infografis/tahunDataRoute.js";
+import agamaStatistikRoutes from "./src/routes/infografis/agamaStatistikRoute.js";
+import umurStatistikRoutes from "./src/routes/infografis/umurStatistikRoute.js";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const frontendUrl = process.env.CORS_ORIGIN || "http://localhost:5173";
+const PORT = process.env.PORT || 300;
 
 // Security middleware
 app.use(helmet());
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || "*",
-    credentials: true,
+    origin: frontendUrl,   // <-- Ini harus sesuai dengan port frontend Anda
+    credentials: true,     // <-- Penting untuk mengizinkan cookie (untuk refresh token)
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"] // Izinkan semua metode
   })
 );
 app.use(cookieParser());
@@ -74,6 +80,7 @@ app.get("/health", (req, res) => {
 app.use("/api/auth", authLimiter, authRoutes);
 
 // ppid routes
+// #masyarakat
 app.use("/api/ppid/dusun", dusunRoutes);
 app.use("/api/ppid/rt", rtRoutes);
 app.use("/api/ppid/msyrkt", masyarakatRoutes);
@@ -81,6 +88,12 @@ app.use("/api/ppid/msyrkt", masyarakatRoutes);
 // infografis routes
 app.use("/api/infografis/demografi-penduduk", demografiPendudukRoutes);
 app.use("/api/infografis/tahun-data", tahunDataRoutes);
+app.use("/api/infografis/agama-statistik", agamaStatistikRoutes);
+app.use("/api/infografis/umur-statistik", umurStatistikRoutes);
+
+// #umkm
+app.use("/api/ppid/kategori_umkm", kategoriUmkmRoutes);
+app.use("/api/ppid/umkm", umkmRoutes);
 
 // 404 handler
 app.use("*", (req, res) => {
@@ -93,6 +106,7 @@ app.use("*", (req, res) => {
 // Error handling middleware
 app.use(errorHandler);
 
+console.table(listEndpoints(app)); // tampil rapi seperti artisan route:list
 // Start server
 app.listen(PORT, () => {
   // 3. (Opsional) Gunakan logger untuk pesan status server

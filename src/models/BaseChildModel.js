@@ -10,19 +10,12 @@ class BaseChildModel {
     // Tentukan nama kolom timestamp berdasarkan tabel
     // Tabel lama menggunakan 'created_at', tabel baru menggunakan 'create_at'
     const tablesWithCreatedAt = [
-      "users",
-      "refresh_tokens",
-      "dusuns",
-      "rts",
-      "masyarakats",
-      "tahun_data",
-      "umur_statistik",
+      'users', 'refresh_tokens', 'dusuns', 'rts', 'masyarakats', 
+      'tahun_data', 'umur_statistik'
     ];
-
-    this.createdAtColumn = tablesWithCreatedAt.includes(tableName)
-      ? "created_at"
-      : "create_at";
-    this.updatedAtColumn = "updated_at";
+    
+    this.createdAtColumn = tablesWithCreatedAt.includes(tableName) ? 'created_at' : 'create_at';
+    this.updatedAtColumn = 'updated_at';
   }
 
   // Get all records with year information

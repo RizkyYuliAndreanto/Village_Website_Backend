@@ -14,7 +14,7 @@ export async function up(knex) {
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
     table.integer("total_penduduk").notNullable().defaultTo(0);
-    table.integer("laki-laki").notNullable().defaultTo(0);
+    table.integer("laki_laki").notNullable().defaultTo(0);
     table.integer("perempuan").notNullable().defaultTo(0);
     table.integer("penduduk_sementara").notNullable().defaultTo(0);
     table.integer("mutasi_penduduk").notNullable().defaultTo(0);

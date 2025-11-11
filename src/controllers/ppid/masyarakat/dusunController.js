@@ -1,8 +1,8 @@
-import { db } from "../../../config/database.js";
+import { db } from "../../../../config/database.js";
 import {
   createDusunSchema,
   updateDusunSchema,
-} from "../../validations/ppid/dusun.js";
+} from "../../../validations/ppid/masyarakat/dusun.js";
 
 class DusunController {
   static async index(req, res, next) {
@@ -87,12 +87,10 @@ class DusunController {
           .andWhereNot({ id })
           .first();
         if (dup)
-          return res
-            .status(409)
-            .json({
-              success: false,
-              message: "Kode already used by another dusun",
-            });
+          return res.status(409).json({
+            success: false,
+            message: "Kode already used by another dusun",
+          });
       }
 
       await db("dusuns")

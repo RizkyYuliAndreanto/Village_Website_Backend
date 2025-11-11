@@ -1,8 +1,7 @@
 import express from "express";
-import DusunController from "../../controllers/ppid/dusunController.js";
-import { authorizeRole } from "../../middlewares/roleHandler.js";
-import { authenticate } from "../../middlewares/auth.js";
-
+import DusunController from "../../../controllers/ppid/masyarakat/dusunController.js";
+import { authorizeRole } from "../../../middlewares/roleHandler.js";
+import { authenticate } from "../../../middlewares/auth.js";
 
 const router = express.Router();
 router.use(authenticate);

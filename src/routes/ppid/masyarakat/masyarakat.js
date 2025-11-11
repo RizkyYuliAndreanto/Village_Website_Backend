@@ -1,6 +1,6 @@
 import express from "express";
-import MasyarakatController from "../../controllers/ppid/masyarakatController.js";
-import { authenticate } from "../../middlewares/auth.js";
+import MasyarakatController from "../../../controllers/ppid/masyarakat/masyarakatController.js";
+import { authenticate } from "../../../middlewares/auth.js";
 
 const router = express.Router();
 

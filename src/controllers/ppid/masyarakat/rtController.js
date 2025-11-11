@@ -1,5 +1,8 @@
-import { db } from "../../../config/database.js";
-import { createRtSchema, updateRtSchema } from "../../validations/ppid/rt.js";
+import { db } from "../../../../config/database.js";
+import {
+  createRtSchema,
+  updateRtSchema,
+} from "../../../validations/ppid/masyarakat/rt.js";
 
 class RtController {
   static async index(req, res, next) {

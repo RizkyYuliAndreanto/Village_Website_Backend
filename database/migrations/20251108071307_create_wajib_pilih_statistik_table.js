@@ -13,7 +13,7 @@ export async function up(knex) {
             .inTable("tahun_data")
             .onDelete("CASCADE")
             .onUpdate("CASCADE");
-    table.integer("laki-laki").notNullable().defaultTo(0);
+    table.integer("laki_laki").notNullable().defaultTo(0);
     table.integer("perempuan").notNullable().defaultTo(0);
     table.integer("total").notNullable().defaultTo(0);
     table.timestamp("create_at").defaultTo(knex.fn.now());

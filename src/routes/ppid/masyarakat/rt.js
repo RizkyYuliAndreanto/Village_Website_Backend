@@ -1,7 +1,7 @@
 import express from "express";
-import RtController from "../../controllers/ppid/rtController.js";
-import { authorizeRole } from "../../middlewares/roleHandler.js";
-import { authenticate } from "../../middlewares/auth.js";
+import RtController from "../../../controllers/ppid/masyarakat/rtController.js";
+import { authorizeRole } from "../../../middlewares/roleHandler.js";
+import { authenticate } from "../../../middlewares/auth.js";
 
 const router = express.Router();
 router.use(authenticate);

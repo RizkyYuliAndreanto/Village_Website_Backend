@@ -20,8 +20,8 @@ class DemografiPendudukModel extends BaseChildModel {
       total_population: total,
       gender_distribution: {
         laki_laki: {
-          count: data["laki-laki"], // Note: field name has hyphen in DB
-          percentage: ((data["laki-laki"] / total) * 100).toFixed(2),
+          count: data.laki_laki, // <-- PERBAIKAN DI SINI
+          percentage: ((data.laki_laki / total) * 100).toFixed(2), // <-- PERBAIKAN DI SINI
         },
         perempuan: {
           count: data.perempuan,
@@ -51,27 +51,27 @@ class DemografiPendudukModel extends BaseChildModel {
       population_growth: {
         [tahun1]: {
           total: data1.total_penduduk,
-          laki_laki: data1["laki-laki"],
+          laki_laki: data1.laki_laki, // <-- PERBAIKAN DI SINI
           perempuan: data1.perempuan,
         },
         [tahun2]: {
           total: data2.total_penduduk,
-          laki_laki: data2["laki-laki"],
+          laki_laki: data2.laki_laki, // <-- PERBAIKAN DI SINI
           perempuan: data2.perempuan,
         },
         growth: {
           total: growth,
-          laki_laki: data2["laki-laki"] - data1["laki-laki"],
+          laki_laki: data2.laki_laki - data1.laki_laki, // <-- PERBAIKAN DI SINI
           perempuan: data2.perempuan - data1.perempuan,
         },
         growth_percentage: {
           total: parseFloat(growthPercentage.toFixed(2)),
           laki_laki:
-            data1["laki-laki"] > 0
+            data1.laki_laki > 0 // <-- PERBAIKAN DI SINI
               ? parseFloat(
                   (
-                    ((data2["laki-laki"] - data1["laki-laki"]) /
-                      data1["laki-laki"]) *
+                    ((data2.laki_laki - data1.laki_laki) / // <-- PERBAIKAN DI SINI
+                      data1.laki_laki) * // <-- PERBAIKAN DI SINI
                     100
                   ).toFixed(2)
                 )
@@ -92,6 +92,7 @@ class DemografiPendudukModel extends BaseChildModel {
 
   // Get population density and migration info
   async getPopulationMobilityByYear(tahun) {
+    // ... (Fungsi ini tidak menggunakan data laki_laki, jadi sudah benar)
     const data = await this.getByYear(tahun);
     if (!data) return null;
 
@@ -118,13 +119,13 @@ class DemografiPendudukModel extends BaseChildModel {
       const baseStats = {
         tahun: data.tahun,
         total_penduduk: data.total_penduduk,
-        laki_laki: data["laki-laki"],
+        laki_laki: data.laki_laki, // <-- PERBAIKAN DI SINI
         perempuan: data.perempuan,
         penduduk_sementara: data.penduduk_sementara,
         mutasi_penduduk: data.mutasi_penduduk,
         gender_ratio:
-          data["laki-laki"] > 0
-            ? parseFloat((data.perempuan / data["laki-laki"]).toFixed(2))
+          data.laki_laki > 0 // <-- PERBAIKAN DI SINI
+            ? parseFloat((data.perempuan / data.laki_laki).toFixed(2)) // <-- PERBAIKAN DI SINI
             : 0,
       };
 
@@ -170,12 +171,12 @@ class DemografiPendudukModel extends BaseChildModel {
       latest_year: latestData.tahun,
       current_population: latestData.total_penduduk,
       current_gender_distribution: {
-        laki_laki: latestData["laki-laki"],
+        laki_laki: latestData.laki_laki, // <-- PERBAIKAN DI SINI
         perempuan: latestData.perempuan,
         ratio:
-          latestData["laki-laki"] > 0
+          latestData.laki_laki > 0 // <-- PERBAIKAN DI SINI
             ? parseFloat(
-                (latestData.perempuan / latestData["laki-laki"]).toFixed(2)
+                (latestData.perempuan / latestData.laki_laki).toFixed(2) // <-- PERBAIKAN DI SINI
               )
             : 0,
       },
@@ -205,7 +206,7 @@ class DemografiPendudukModel extends BaseChildModel {
   validateDemographicData(data) {
     const demographicFields = [
       "total_penduduk",
-      "laki_laki",
+      "laki_laki", // <-- SUDAH BENAR
       "perempuan",
       "penduduk_sementara",
       "mutasi_penduduk",
@@ -226,10 +227,10 @@ class DemografiPendudukModel extends BaseChildModel {
     // Check if gender sum doesn't exceed total (if all fields are provided)
     if (
       data.total_penduduk !== undefined &&
-      data.laki_laki !== undefined &&
+      data.laki_laki !== undefined && // <-- SUDAH BENAR
       data.perempuan !== undefined
     ) {
-      const genderSum = data.laki_laki + data.perempuan;
+      const genderSum = data.laki_laki + data.perempuan; // <-- SUDAH BENAR
       if (genderSum > data.total_penduduk) {
         return {
           valid: false,
@@ -261,11 +262,11 @@ class DemografiPendudukModel extends BaseChildModel {
       throw new Error("Data demografi penduduk untuk tahun ini sudah ada");
     }
 
-    // Map field name for database (laki_laki -> laki-laki)
+    // Map field name for database (laki_laki -> laki_laki)
     const dbData = { ...data };
     if (data.laki_laki !== undefined) {
-      dbData["laki-laki"] = data.laki_laki;
-      delete dbData.laki_laki;
+      dbData.laki_laki = data.laki_laki; // <-- PERBAIKAN DI SINI (sudah konsisten)
+      // delete dbData.laki_laki; // Baris ini tidak diperlukan lagi
     }
 
     return await this.create(dbData);
@@ -300,11 +301,11 @@ class DemografiPendudukModel extends BaseChildModel {
       }
     }
 
-    // Map field name for database (laki_laki -> laki-laki)
+    // Map field name for database (laki_laki -> laki_laki)
     const dbData = { ...data };
     if (data.laki_laki !== undefined) {
-      dbData["laki-laki"] = data.laki_laki;
-      delete dbData.laki_laki;
+      dbData.laki_laki = data.laki_laki; // <-- PERBAIKAN DI SINI (sudah konsisten)
+      // delete dbData.laki_laki; // Baris ini tidak diperlukan lagi
     }
 
     return await this.update(id, dbData);
