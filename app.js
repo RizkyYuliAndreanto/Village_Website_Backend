@@ -13,9 +13,11 @@ import router from "./src/routes/index.js";
 import authRoutes from "./src/routes/auth/auth.js";
 
 // ppid
-import dusunRoutes from "./src/routes/ppid/dusun.js";
-import rtRoutes from "./src/routes/ppid/rt.js";
-import masyarakatRoutes from "./src/routes/ppid/masyarakat.js";
+import dusunRoutes from "./src/routes/ppid/masyarakat/dusun.js";
+import rtRoutes from "./src/routes/ppid/masyarakat/rt.js";
+import masyarakatRoutes from "./src/routes/ppid/masyarakat/masyarakat.js";
+import kategoriUmkmRoutes from "./src/routes/ppid/umkm/kategoriUmkm.js";
+import umkmRoutes from "./src/routes/ppid/umkm/umkm.js";
 
 // infografis
 import demografiPendudukRoutes from "./src/routes/infografis/demografiPendudukRoute.js";
